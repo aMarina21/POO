@@ -1,7 +1,6 @@
 import T3Classes.*;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,29 +11,33 @@ public class Main {
 
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("-----ESCOLHA UM OPCAO-----");
-            System.out.println("1 - Criar novo gabarito\n2 - Ler arquivos já existentes");
+            System.out.println("1 - Criar novo(s) gabarito(s)\n2 - Ler gabaritos já existentes\n3 - Ler boletims de alunos");
             int escolha = sc.nextInt();
             sc.nextLine();
 
             Disciplina[] disciplinas = null;
             int numeroDeAlunos = 0;
-            String[] nomeAlunos = null;
 
             if (escolha == 2) {
-                System.out.println("Digite a disciplina que deseja ler os resultados: ");
+                System.out.println("Digite a disciplina que deseja ler os gabaritos: ");
                 String disciplina = sc.nextLine();
 
-
+                String baseDir = System.getProperty("user.dir") + java.io.File.separator;
                 String[] respostasGabarito = new String[10];
-                try (BufferedReader brGabarito = new BufferedReader(new FileReader(disciplina + "_gabarito.txt"))) {
-                    for (int i = 0; i < 10; i++) {
-                        respostasGabarito[i] = brGabarito.readLine();
-                    }
-                    Gabarito gabarito = new Gabarito(respostasGabarito);
+                try {
+                    String gab_path = baseDir + disciplina + "_gabarito.txt";
+                    System.out.println("Tentando ler gabarito de: " + gab_path);
+                    try (BufferedReader brGabarito = new BufferedReader(new FileReader(gab_path))) {
+                        for (int i = 0; i < 10; i++) {
+                            respostasGabarito[i] = brGabarito.readLine();
+                        }
+                        Gabarito gabarito = new Gabarito(respostasGabarito);
 
-                    ArrayList<Aluno> listaAlunos = new ArrayList<>();
-                    try (BufferedReader brAlunos = new BufferedReader(new FileReader(disciplina + ".txt"))) {
-                        String linha;
+                        ArrayList<Aluno> listaAlunos = new ArrayList<>();
+                        String alunos_path = baseDir + disciplina + ".txt";
+                        System.out.println("Tentando ler provas de: " + alunos_path);
+                        try (BufferedReader brAlunos = new BufferedReader(new FileReader(alunos_path))) {
+                            String linha;
                         while ((linha = brAlunos.readLine()) != null) {
                             if (linha.trim().isEmpty() || linha.startsWith("Media")) continue;
                             String[] divisoes = linha.split("\t");
@@ -55,7 +58,16 @@ public class Main {
                     }
                     disciplinas = new Disciplina[1];
                     disciplinas[0] = new Disciplina(disciplina, listaAlunos.toArray(new Aluno[0]), gabarito);
+                        }
+                } catch (Exception e) {
+                    System.out.println("ERRO: Nao foi possivel ler os arquivos da disciplina '" + disciplina + "'");
+                    System.out.println("Detalhes do erro: " + e.getMessage());
+                    e.printStackTrace();
                 }
+            } else if (escolha == 3) {
+                System.out.println("Abrindo visualizador de boletins...");
+                new InterfaceGrafica(new java.io.File(System.getProperty("user.dir")));
+                return;
             } else {
                 // Registra alunos
                 System.out.println("Digite o numero de alunos:");
@@ -93,6 +105,12 @@ public class Main {
                     }
 
                     disciplinas[i] = new Disciplina(nomeDisciplina, provas, gabarito);
+                }
+
+                // Corrige todas as provas e salva os resultados dos boletins usando metodo alfabetico como padrao
+                for (Disciplina disc : disciplinas) {
+                    disc.corrigirTodasAsProvas();
+                    disc.ordenarAlfabeticamente();
                 }
             }
 
@@ -144,7 +162,7 @@ public class Main {
                             }
                         }
                     } else if (opcaoPrincipal == 2) {
-                        GerarBoletim geradorBoletim = new GerarBoletim();
+                        GerarBoletim geradorBoletim = new GerarBoletim(new java.io.File(System.getProperty("user.dir")));
                         geradorBoletim.processarArquivos();
 
 

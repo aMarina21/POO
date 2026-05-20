@@ -1,7 +1,0 @@
-=== Boletim de Paulo ===
-
-Disciplina: POO
-  Nota: 10/10
-
-Media geral: 10,00
-Situacao: Aprovado

@@ -32,25 +32,36 @@ public class Gabarito {
     }
 
     public void salvarGabarito(String nome) {
-        try (FileWriter fw = new FileWriter(nome + "_gabarito.txt");
-            BufferedWriter bw = new BufferedWriter(fw)) {
+        try {
+            String caminhoArquivo = System.getProperty("user.dir") + File.separator + nome + "_gabarito.txt";
+            FileWriter fw = new FileWriter(caminhoArquivo);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
             for (String resposta : respostas) {
                 bw.write(resposta);
                 bw.newLine();
             }
+            bw.close();
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void lerGabarito(String nome) {
-        try (FileReader fr = new FileReader(nome + "_gabarito.txt");
-            BufferedReader br = new BufferedReader(fr)) {
+        try {
+            String caminhoArquivo = System.getProperty("user.dir") + File.separator + nome + "_gabarito.txt";
+            FileReader fr = new FileReader(caminhoArquivo);
+            BufferedReader br = new BufferedReader(fr);
+            
             String linha;
             while ((linha = br.readLine()) != null) {
                 System.out.println(linha);
             }
+            br.close();
+            fr.close();
         } catch (IOException e) {
+            System.err.println("Erro ao ler gabarito: " + nome + "_gabarito.txt");
             e.printStackTrace();
         }
     }

@@ -64,13 +64,18 @@ public class Disciplina {
                 }
             }
         }
-        try (FileWriter fw = new FileWriter(nome + "_ord_alfabetica.txt");
-            BufferedWriter bw = new BufferedWriter(fw)) {
+        try {
+            String caminhoArquivo = System.getProperty("user.dir") + File.separator + nome + ".txt";
+            FileWriter fw = new FileWriter(caminhoArquivo);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
             for (Aluno prova : provasOrdenadas) {
                 String respostas = String.join("", prova.getRespostas());
                 bw.write(respostas + "\t" + prova.getNome() + "\t" + prova.getAcertos());
                 bw.newLine();
             }
+            bw.close();
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,27 +93,38 @@ public class Disciplina {
                 }
             }
         }
-        try (FileWriter fw = new FileWriter(nome + "_ord_acerto.txt");
-            BufferedWriter bw = new BufferedWriter(fw)) {
+        try {
+            String caminhoArquivo = System.getProperty("user.dir") + File.separator + nome + ".txt";
+            FileWriter fw = new FileWriter(caminhoArquivo);
+            BufferedWriter bw = new BufferedWriter(fw);
+            
             for (Aluno prova : provasOrdenadas) {
                 String respostas = String.join("", prova.getRespostas());
                 bw.write(respostas + "\t" + prova.getNome() + "\t" + prova.getAcertos());
                 bw.newLine();
             }
             bw.write("Media: " + calcularMediaTurma());
+            bw.close();
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void lerProvasDeArquivo(String nome) {
-        try (FileReader fr = new FileReader(nome + ".txt");
-            BufferedReader br = new BufferedReader(fr)) {
+        try {
+            String caminhoArquivo = System.getProperty("user.dir") + File.separator + nome + ".txt";
+            FileReader fr = new FileReader(caminhoArquivo);
+            BufferedReader br = new BufferedReader(fr);
+            
             String linha;
             while ((linha = br.readLine()) != null) {
                 System.out.println(linha);
             }
+            br.close();
+            fr.close();
         } catch (IOException e) {
+            System.err.println("Erro ao ler arquivo: " + nome + ".txt");
             e.printStackTrace();
         }
     }

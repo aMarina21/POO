@@ -43,7 +43,7 @@ public class GerarBoletim {
     }
 
     public GerarBoletim(File diretorio) {
-        this.diretorio = diretorio;
+        this.diretorio = diretorio.getAbsoluteFile();
     }
 
     public void processarArquivos() {
@@ -110,11 +110,13 @@ public class GerarBoletim {
 
     private void gerarBoletimAluno(AlunoBoletim aluno) {
         String nomeArquivo = aluno.nome.replaceAll("\\s+", "_") + "_boletim.txt";
+        String caminhoCompleto = diretorio.getAbsolutePath() + File.separator + nomeArquivo;
         double media = aluno.calcularMedia();
         boolean aprovado = aluno.aprovado();
 
-        try (FileWriter fw = new FileWriter(nomeArquivo);
-             BufferedWriter bw = new BufferedWriter(fw)) {
+        try {
+            FileWriter fw = new FileWriter(caminhoCompleto);
+            BufferedWriter bw = new BufferedWriter(fw);
 
             bw.write("=== Boletim de " + aluno.nome + " ===");
             bw.newLine();
@@ -132,6 +134,9 @@ public class GerarBoletim {
             bw.newLine();
             bw.write("Situacao: " + (aprovado ? "Aprovado" : "Reprovado"));
             bw.newLine();
+
+            bw.close();
+            fw.close();
 
             System.out.println("Boletim gerado: " + nomeArquivo);
 

@@ -1,7 +1,0 @@
-=== Boletim de Henrique ===
-
-Disciplina: POO
-  Nota: 9/10
-
-Media geral: 9,00
-Situacao: Aprovado

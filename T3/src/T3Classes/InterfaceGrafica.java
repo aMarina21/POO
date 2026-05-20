@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class InterfaceGrafica extends JFrame {
     private JTextArea textAreaBoletim;
     private JComboBox<String> comboAlunosBoletim;
-    private JButton btnCarregarBoletim;
     private JButton btnProximo;
     private JButton btnAnterior;
     private JLabel lblStatus;
@@ -22,7 +21,8 @@ public class InterfaceGrafica extends JFrame {
 
     public InterfaceGrafica(File diretorio) {
         try {
-            this.diretorio = diretorio;
+            // Garantir que o diretório seja um caminho absoluto
+            this.diretorio = diretorio.getAbsoluteFile();
             this.alunosDisponiveis = new ArrayList<>();
             this.alunoAtualIndex = 0;
 
@@ -44,7 +44,7 @@ public class InterfaceGrafica extends JFrame {
             setLocationRelativeTo(null);
             setResizable(true);
 
-            // Initialize text area first
+            // Inicializar componentes de texto 
             textAreaBoletim = new JTextArea();
             textAreaBoletim.setFont(new Font("Courier New", Font.PLAIN, 12));
             textAreaBoletim.setEditable(false);
@@ -83,11 +83,6 @@ public class InterfaceGrafica extends JFrame {
         comboAlunosBoletim.setPreferredSize(new Dimension(200, 25));
         comboAlunosBoletim.addActionListener(e -> carregarBoletimSelecionado());
         painel.add(comboAlunosBoletim);
-
-        // Botão Carregar
-        btnCarregarBoletim = new JButton("Carregar");
-        btnCarregarBoletim.addActionListener(e -> carregarBoletimSelecionado());
-        painel.add(btnCarregarBoletim);
 
         // Botões de navegação
         btnAnterior = new JButton("< Anterior");
@@ -128,7 +123,7 @@ public class InterfaceGrafica extends JFrame {
                 alunosDisponiveis.add(nomeAluno);
             }
 
-            // Add items to combo box
+            // Items para ComboBox
             if (comboAlunosBoletim != null) {
                 for (String aluno : alunosDisponiveis) {
                     comboAlunosBoletim.addItem(aluno);
@@ -159,7 +154,7 @@ public class InterfaceGrafica extends JFrame {
             String nomeAluno = alunosDisponiveis.get(alunoAtualIndex);
             carregarBoletim(nomeAluno);
         } else if (alunosDisponiveis.size() > 0) {
-            // Fallback to first student if selection is invalid
+            // Volta para o primeiro aluno se a seleção for inválida
             carregarBoletim(alunosDisponiveis.get(0));
         }
     }
