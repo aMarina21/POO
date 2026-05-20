@@ -1,0 +1,7 @@
+=== Boletim de Bob ===
+
+Disciplina: POO
+  Nota: 0/10
+
+Media geral: 0,00
+Situacao: Reprovado

@@ -64,7 +64,7 @@ public class Disciplina {
                 }
             }
         }
-        try (FileWriter fw = new FileWriter(nome + ".txt");
+        try (FileWriter fw = new FileWriter(nome + "_ord_alfabetica.txt");
             BufferedWriter bw = new BufferedWriter(fw)) {
             for (Aluno prova : provasOrdenadas) {
                 String respostas = String.join("", prova.getRespostas());
@@ -88,7 +88,7 @@ public class Disciplina {
                 }
             }
         }
-        try (FileWriter fw = new FileWriter(nome + ".txt");
+        try (FileWriter fw = new FileWriter(nome + "_ord_acerto.txt");
             BufferedWriter bw = new BufferedWriter(fw)) {
             for (Aluno prova : provasOrdenadas) {
                 String respostas = String.join("", prova.getRespostas());
