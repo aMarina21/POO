@@ -1,5 +1,12 @@
 package TFinalClasses;
 
+import TFinalExcecoes.AvaliacaoInvalidaException;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Avaliacao {
     private Medico medico;
     private Paciente paciente;
@@ -33,4 +40,21 @@ public class Avaliacao {
         this.estrelas = estrelas;
     }
 
+    public void registrarAvaliacao() throws AvaliacaoInvalidaException {
+        if(this.estrelas < 1 || this.estrelas > 5){
+            throw new AvaliacaoInvalidaException();
+        }
+        String caminho = this.paciente.getNome() + "_" + this.medico.getNome() + "_av.txt";
+        String diretorio = "TFinal/src/TFinalArquivos/avaliacoes/";
+        File arquivoAvaliacao = new File(diretorio + caminho);
+        try(BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoAvaliacao))) {
+            escritor.write("Medico: " + this.medico.getNome() + "\n");
+            escritor.write("Paciente: " + this.paciente.getNome() + "\n");
+            escritor.write("Descrição: " + this.descricao + "\n");
+            escritor.write("Avaliação: " + this.estrelas + " estrelas");
+            escritor.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao registrar avaliação: " + e.getMessage());
+        }
+    }
 }

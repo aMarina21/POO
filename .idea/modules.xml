@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/POO.iml" filepath="$PROJECT_DIR$/.idea/POO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista4/Q1/Q1.iml" filepath="$PROJECT_DIR$/Lista4/Q1/Q1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista2/Q4/Q10.iml" filepath="$PROJECT_DIR$/Lista2/Q4/Q10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista2/Q5/Q11.iml" filepath="$PROJECT_DIR$/Lista2/Q5/Q11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista4/Q5/Q12.iml" filepath="$PROJECT_DIR$/Lista4/Q5/Q12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista4/Q4/Q13.iml" filepath="$PROJECT_DIR$/Lista4/Q4/Q13.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista4/Q3/Q14.iml" filepath="$PROJECT_DIR$/Lista4/Q3/Q14.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista5/Q2/Q15.iml" filepath="$PROJECT_DIR$/Lista5/Q2/Q15.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista3/Q1/Q16.iml" filepath="$PROJECT_DIR$/Lista3/Q1/Q16.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista5/Q3/Q17.iml" filepath="$PROJECT_DIR$/Lista5/Q3/Q17.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista5/Q1/Q18.iml" filepath="$PROJECT_DIR$/Lista5/Q1/Q18.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista1/Q1/Q19.iml" filepath="$PROJECT_DIR$/Lista1/Q1/Q19.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista4/Q2/Q2.iml" filepath="$PROJECT_DIR$/Lista4/Q2/Q2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista1/Q2/Q20.iml" filepath="$PROJECT_DIR$/Lista1/Q2/Q20.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista1/Q3/Q21.iml" filepath="$PROJECT_DIR$/Lista1/Q3/Q21.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista3/Q5/Q22.iml" filepath="$PROJECT_DIR$/Lista3/Q5/Q22.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista1/Q4/Q23.iml" filepath="$PROJECT_DIR$/Lista1/Q4/Q23.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista3/Q4/Q24.iml" filepath="$PROJECT_DIR$/Lista3/Q4/Q24.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista1/Q5/Q25.iml" filepath="$PROJECT_DIR$/Lista1/Q5/Q25.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista5/Q4/Q26.iml" filepath="$PROJECT_DIR$/Lista5/Q4/Q26.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista3/Q3/Q27.iml" filepath="$PROJECT_DIR$/Lista3/Q3/Q27.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista1/Q6/Q28.iml" filepath="$PROJECT_DIR$/Lista1/Q6/Q28.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista3/Q2/Q29.iml" filepath="$PROJECT_DIR$/Lista3/Q2/Q29.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista6/Q3/Q3.iml" filepath="$PROJECT_DIR$/Lista6/Q3/Q3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista6/Q4/Q4.iml" filepath="$PROJECT_DIR$/Lista6/Q4/Q4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista6/Q1/Q5.iml" filepath="$PROJECT_DIR$/Lista6/Q1/Q5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista6/Q2/Q6.iml" filepath="$PROJECT_DIR$/Lista6/Q2/Q6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista2/Q1/Q7.iml" filepath="$PROJECT_DIR$/Lista2/Q1/Q7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista2/Q2/Q8.iml" filepath="$PROJECT_DIR$/Lista2/Q2/Q8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lista2/Q3/Q9.iml" filepath="$PROJECT_DIR$/Lista2/Q3/Q9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/T1/T1.iml" filepath="$PROJECT_DIR$/T1/T1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/T2/T2.iml" filepath="$PROJECT_DIR$/T2/T2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/T3/T3.iml" filepath="$PROJECT_DIR$/T3/T3.iml" />
+    </modules>
+  </component>
+</project>

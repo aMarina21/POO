@@ -1,0 +1,9 @@
+=== Boletim de Joao ===
+
+Disciplina: Algebra
+  Nota: 0/10
+Disciplina: POO
+  Nota: 4/10
+
+Media geral: 2,00
+Situacao: Reprovado
