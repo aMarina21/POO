@@ -1,0 +1,13 @@
+src/Main.java
+src/T1Classes/CasaRetrocede.java
+src/T1Classes/JogadorCorInvalidaException.java
+src/T1Classes/CasaParada.java
+src/T1Classes/ContextoExecucao.java
+src/T1Classes/CasaDaSorte.java
+src/T1Classes/Tabuleiro.java
+src/T1Classes/CasaSurpresa.java
+src/T1Classes/Casa.java
+src/T1Classes/CasaVoltarCompetidor.java
+src/T1Classes/Jogo.java
+src/T1Classes/CasaMagica.java
+src/T1Classes/Jogador.java

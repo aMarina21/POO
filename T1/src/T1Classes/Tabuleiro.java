@@ -71,7 +71,7 @@ public class Tabuleiro {
     }
 
     private String getCorJogador(Jogador jogador) {
-       String cor = jogador.getCor().toLowerCase();
+    String cor = jogador.getCor().toLowerCase();
         switch (cor) {
             case "vermelho":
                 return RED;

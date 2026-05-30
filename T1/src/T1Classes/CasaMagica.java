@@ -19,7 +19,7 @@ public class CasaMagica extends Casa {
         
         if (contexto.getJogador().getPosicao() == contexto.getJogadores()[minPosition].getPosicao()) {
             System.out.println("Casa magica! Como voce esta em ultimo lugar, voce retorna para onde estava!");
-            contexto.getJogador().setPosicao(contexto.getPreviousPosition());
+            contexto.getJogador().setPosicao(contexto.getultimaPosicao());
         } else {
             System.out.println("Casa magica! Trocou de posicao com o jogador mais atrasado!");
             trocarPosicao(contexto.getJogador(), contexto.getJogadores());

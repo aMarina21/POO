@@ -1,6 +1,6 @@
 package T3Classes;
 
-public class Provas {
+public class Aluno {
     private String[] respostas;
     private String nome;
     private static final int NUMERO_DE_PERGUNTAS = 10;
@@ -19,7 +19,7 @@ public class Provas {
         return normalizadas;
     }
 
-    public Provas(String[] respostas, String nome) {
+    public Aluno(String[] respostas, String nome) {
         this.respostas = normalizarRespostas(respostas);
         this.nome = nome;
     }
