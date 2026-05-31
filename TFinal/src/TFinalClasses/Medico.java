@@ -1,4 +1,6 @@
 package TFinalClasses;
+import TFinalExcecoes.PlanoInvalidoException;
+
 import java.util.*;
 
 public abstract class Medico {
@@ -6,13 +8,24 @@ public abstract class Medico {
     private String especialidade;
     private double valorConsulta;
     private ArrayList<Avaliacao> avalicoes;
+    private ArrayList<String> planosDeSaude;
 
     public Medico(String nome, String especialidade, double valorConsulta) {
         this.nome = nome;
         this.especialidade = especialidade;
         this.valorConsulta = valorConsulta;
         this.avalicoes = new ArrayList<>();
+        this.planosDeSaude = new ArrayList<>();
     }
+    public void adicionarPlano(String plano) throws PlanoInvalidoException {
+        planosDeSaude.add(plano);
+    }
+
+    public boolean planoValido(String plano){
+        return true;
+    }
+
+    public abstract int getPacientesPorDia();
 
     public String getNome() {
         return nome;
