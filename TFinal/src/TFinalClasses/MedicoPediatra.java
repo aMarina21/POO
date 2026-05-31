@@ -5,4 +5,8 @@ public class MedicoPediatra extends Medico {
         super(nome, "Pediatria", valorConsulta);
     }
 
+    @Override
+    public int getPacientesPorDia() {
+        return 2;
+    }
 }
