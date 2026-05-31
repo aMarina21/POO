@@ -35,7 +35,7 @@ public class Agendamento {
                 String medico = divisao[0];
                 String data = divisao[2];
 
-                if(medico.equalsIgnoreCase(this.medico.getNome()) && data.equals(this.dataConsulta)){
+                if(medico.equalsIgnoreCase(this.medico.getNome()) && data.equals(this.dataConsulta.toString())){
                     contador++;
                 }
             }
@@ -44,7 +44,7 @@ public class Agendamento {
     }
 
     public boolean temVagas() throws IOException {
-        int qtdVagas = medico.getPacientesPorDia();
+        int qtdVagas = this.medico.getPacientesPorDia();
         return contarAgendamentos() < qtdVagas;
     }
 
