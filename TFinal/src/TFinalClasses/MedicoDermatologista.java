@@ -3,8 +3,8 @@ package TFinalClasses;
 import TFinalExcecoes.PlanoInvalidoException;
 
 public class MedicoDermatologista extends Medico {
-    public MedicoDermatologista(String nome, double valorConsulta) {
-        super(nome, "Dermatologia", valorConsulta);
+    public MedicoDermatologista(String nome, double valorConsulta, String senha) {
+        super(nome, "Dermatologia", valorConsulta, senha);
     }
 
     public MedicoDermatologista(String nome, double valorConsulta, String senha) {

@@ -47,7 +47,7 @@ public class Avaliacao {
             throw new AvaliacaoInvalidaException();
         }
         String caminho = this.paciente.getNome() + "_" + this.medico.getNome() + "_av.txt";
-        String diretorio = "TFinal/src/TFinalArquivos/avaliacoes/";
+        String diretorio = "src/TFinalArquivos/avaliacoes/";
         File arquivoAvaliacao = new File(diretorio + caminho);
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoAvaliacao))) {
             escritor.write("Medico: " + this.medico.getNome() + "\n");

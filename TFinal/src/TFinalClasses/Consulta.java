@@ -78,7 +78,7 @@ public class Consulta {
     public void registrarConsulta(){
         String dataFormatada = this.data.replace("/", "_");
         String caminho = this.paciente.getNome() + "_" + this.medico.getNome() + "_" + dataFormatada + ".txt";
-        String diretorio = "TFinal/src/TFinalArquivos/consultas/";
+        String diretorio = "src/TFinalArquivos/consultas/";
         File arquivoConsulta = new File(diretorio + caminho);
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoConsulta))){
             escritor.write("Medico: " + this.medico.getNome() + "\n");

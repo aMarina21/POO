@@ -39,7 +39,7 @@ public class Agendamento {
         return medico.getNome() + " | " + paciente.getNome() + " | " + dataConsulta.toString();
     }
 
-    private String caminho = "TFinal/src/TFinalArquivos/agendamentos/agendamentos.txt";
+    private String caminho = "src/TFinalArquivos/agendamentos/agendamentos.txt";
 
     public int contarAgendamentos() throws IOException {
         File arquivoAgendamento = new File(caminho);
