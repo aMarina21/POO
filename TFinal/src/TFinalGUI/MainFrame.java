@@ -3,6 +3,7 @@ package TFinalGUI;
 import TFinalClasses.*;
 import java.awt.*;
 import javax.swing.*;
+import java.io.File;
 
 public class MainFrame extends JFrame {
 
@@ -44,7 +45,14 @@ public class MainFrame extends JFrame {
     private EstatisticasPanel estatisticasPanel;
 
     public MainFrame() {
-        sistema = new SistemaClinica("TFinal/src/TFinalArquivos");
+        String path = "src/TFinalArquivos";
+        if (!new File(path).exists()) {
+            path = "TFinal/src/TFinalArquivos";
+            if (!new File(path).exists()) {
+                path = "POO/TFinal/src/TFinalArquivos";
+            }
+        }
+        sistema = new SistemaClinica(path);
         sistema.criarDadosIniciais();
 
         setTitle("Clínica Médica — Sistema de Gestão");
@@ -134,11 +142,11 @@ public class MainFrame extends JFrame {
         mostrarTela(LOGIN);
     }
 
-    // ==================== FACTORY DE COMPONENTES ESTILIZADOS ====================
+    // ==================== COMPONENTES ESTILIZADOS ====================
 
     public static String obterFonteParaTexto(String texto) {
         if (texto != null) {
-            for (int i = 0; i < texto.length(); ) {
+            for (int i = 0; i < texto.length();) {
                 int cp = texto.codePointAt(i);
                 if (cp > 0x2000) {
                     return "Segoe UI Emoji";
@@ -162,16 +170,15 @@ public class MainFrame extends JFrame {
 
         Color corHover = corFundo.brighter();
         botao.addMouseListener(
-            new java.awt.event.MouseAdapter() {
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    botao.setBackground(corHover);
-                }
+                new java.awt.event.MouseAdapter() {
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        botao.setBackground(corHover);
+                    }
 
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    botao.setBackground(corFundo);
-                }
-            }
-        );
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        botao.setBackground(corFundo);
+                    }
+                });
         return botao;
     }
 
@@ -181,33 +188,30 @@ public class MainFrame extends JFrame {
         campo.setForeground(COR_TEXTO);
         campo.setCaretColor(COR_TEXTO);
         campo.setBorder(
-            BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(COR_BORDA, 1),
-                BorderFactory.createEmptyBorder(8, 12, 8, 12)
-            )
-        );
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(COR_BORDA, 1),
+                        BorderFactory.createEmptyBorder(8, 12, 8, 12)));
         campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         campo.setPreferredSize(new Dimension(300, 40));
 
         campo.setText(placeholder);
         campo.setForeground(COR_TEXTO_SECUNDARIO);
         campo.addFocusListener(
-            new java.awt.event.FocusAdapter() {
-                public void focusGained(java.awt.event.FocusEvent e) {
-                    if (campo.getText().equals(placeholder)) {
-                        campo.setText("");
-                        campo.setForeground(COR_TEXTO);
+                new java.awt.event.FocusAdapter() {
+                    public void focusGained(java.awt.event.FocusEvent e) {
+                        if (campo.getText().equals(placeholder)) {
+                            campo.setText("");
+                            campo.setForeground(COR_TEXTO);
+                        }
                     }
-                }
 
-                public void focusLost(java.awt.event.FocusEvent e) {
-                    if (campo.getText().isEmpty()) {
-                        campo.setText(placeholder);
-                        campo.setForeground(COR_TEXTO_SECUNDARIO);
+                    public void focusLost(java.awt.event.FocusEvent e) {
+                        if (campo.getText().isEmpty()) {
+                            campo.setText(placeholder);
+                            campo.setForeground(COR_TEXTO_SECUNDARIO);
+                        }
                     }
-                }
-            }
-        );
+                });
         return campo;
     }
 
@@ -217,54 +221,46 @@ public class MainFrame extends JFrame {
         campo.setForeground(COR_TEXTO);
         campo.setCaretColor(COR_TEXTO);
         campo.setBorder(
-            BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(COR_BORDA, 1),
-                BorderFactory.createEmptyBorder(8, 12, 8, 12)
-            )
-        );
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(COR_BORDA, 1),
+                        BorderFactory.createEmptyBorder(8, 12, 8, 12)));
         campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         campo.setPreferredSize(new Dimension(300, 40));
         campo.setEchoChar((char) 0);
         campo.setText(placeholder);
         campo.setForeground(COR_TEXTO_SECUNDARIO);
         campo.addFocusListener(
-            new java.awt.event.FocusAdapter() {
-                public void focusGained(java.awt.event.FocusEvent e) {
-                    if (
-                        String.valueOf(campo.getPassword()).equals(placeholder)
-                    ) {
-                        campo.setText("");
-                        campo.setForeground(COR_TEXTO);
-                        campo.setEchoChar('●');
+                new java.awt.event.FocusAdapter() {
+                    public void focusGained(java.awt.event.FocusEvent e) {
+                        if (String.valueOf(campo.getPassword()).equals(placeholder)) {
+                            campo.setText("");
+                            campo.setForeground(COR_TEXTO);
+                            campo.setEchoChar('●');
+                        }
                     }
-                }
 
-                public void focusLost(java.awt.event.FocusEvent e) {
-                    if (campo.getPassword().length == 0) {
-                        campo.setEchoChar((char) 0);
-                        campo.setText(placeholder);
-                        campo.setForeground(COR_TEXTO_SECUNDARIO);
+                    public void focusLost(java.awt.event.FocusEvent e) {
+                        if (campo.getPassword().length == 0) {
+                            campo.setEchoChar((char) 0);
+                            campo.setText(placeholder);
+                            campo.setForeground(COR_TEXTO_SECUNDARIO);
+                        }
                     }
-                }
-            }
-        );
+                });
         return campo;
     }
 
     public static JLabel criarLabel(
-        String texto,
-        int tamanho,
-        boolean negrito
-    ) {
+            String texto,
+            int tamanho,
+            boolean negrito) {
         JLabel label = new JLabel(texto);
         label.setForeground(COR_TEXTO);
         label.setFont(
-            new Font(
-                obterFonteParaTexto(texto),
-                negrito ? Font.BOLD : Font.PLAIN,
-                tamanho
-            )
-        );
+                new Font(
+                        obterFonteParaTexto(texto),
+                        negrito ? Font.BOLD : Font.PLAIN,
+                        tamanho));
         return label;
     }
 
@@ -272,11 +268,9 @@ public class MainFrame extends JFrame {
         JPanel painel = new JPanel();
         painel.setBackground(COR_PAINEL);
         painel.setBorder(
-            BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(COR_BORDA, 1),
-                BorderFactory.createEmptyBorder(20, 20, 20, 20)
-            )
-        );
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(COR_BORDA, 1),
+                        BorderFactory.createEmptyBorder(20, 20, 20, 20)));
         return painel;
     }
 
@@ -294,7 +288,8 @@ public class MainFrame extends JFrame {
 
     public static String getTextoOuVazio(JTextField campo, String placeholder) {
         String texto = campo.getText().trim();
-        if (texto.equals(placeholder)) return "";
+        if (texto.equals(placeholder))
+            return "";
         return texto;
     }
 }

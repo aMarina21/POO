@@ -81,6 +81,9 @@ public class SistemaClinica {
 
     private void salvarMedicos() {
         File arquivo = new File(basePath + "/medicos.txt");
+        if (arquivo.getParentFile() != null) {
+            arquivo.getParentFile().mkdirs();
+        }
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo))) {
             for (Medico m : medicos) {
                 String tipo;
@@ -126,6 +129,9 @@ public class SistemaClinica {
 
     private void salvarPacientes() {
         File arquivo = new File(basePath + "/pacientes.txt");
+        if (arquivo.getParentFile() != null) {
+            arquivo.getParentFile().mkdirs();
+        }
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo))) {
             for (Paciente p : pacientes) {
                 escritor.write(p.getNome() + "\t" + p.getIdade() + "\t"

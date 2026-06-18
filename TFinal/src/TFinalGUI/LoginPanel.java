@@ -1,5 +1,7 @@
 package TFinalGUI;
 
+import TFinalClasses.*;
+import java.time.LocalDate;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,8 +13,9 @@ public class LoginPanel extends JPanel {
 
     // Campos extras para cadastro
     private JTextField campoIdade;
-    private JTextField campoPlano;
+    private JComboBox<String> comboPlano;
     private JComboBox<String> comboTipo;
+    private JComboBox<String> comboEspecialidade;
     private JTextField campoValor;
     private JPanel painelCadastroExtra;
     private JLabel labelTitulo;
@@ -69,7 +72,7 @@ public class LoginPanel extends JPanel {
         painelCadastroExtra.setVisible(false);
         painelCadastroExtra.setMaximumSize(new Dimension(360, 200));
 
-        comboTipo = new JComboBox<>(new String[] { "Paciente", "Cardiologista", "Pediatra", "Dermatologista" });
+        comboTipo = new JComboBox<>(new String[] { "Paciente", "Médico" });
         comboTipo.setBackground(MainFrame.COR_CARD);
         comboTipo.setForeground(MainFrame.COR_TEXTO);
         comboTipo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -84,10 +87,23 @@ public class LoginPanel extends JPanel {
         painelCadastroExtra.add(campoIdade);
         painelCadastroExtra.add(Box.createVerticalStrut(8));
 
-        campoPlano = MainFrame.criarCampoTexto("Plano de Saúde (ou vazio)");
-        campoPlano.setMaximumSize(new Dimension(360, 42));
-        campoPlano.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelCadastroExtra.add(campoPlano);
+        comboPlano = new JComboBox<>(new String[] { "Nenhum", "Unimed", "Hapvida", "Issec" });
+        comboPlano.setBackground(MainFrame.COR_CARD);
+        comboPlano.setForeground(MainFrame.COR_TEXTO);
+        comboPlano.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        comboPlano.setMaximumSize(new Dimension(360, 42));
+        comboPlano.setAlignmentX(Component.CENTER_ALIGNMENT);
+        painelCadastroExtra.add(comboPlano);
+        painelCadastroExtra.add(Box.createVerticalStrut(8));
+
+        comboEspecialidade = new JComboBox<>(new String[] { "Cardiologista", "Dermatologista", "Pediatra" });
+        comboEspecialidade.setBackground(MainFrame.COR_CARD);
+        comboEspecialidade.setForeground(MainFrame.COR_TEXTO);
+        comboEspecialidade.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        comboEspecialidade.setMaximumSize(new Dimension(360, 42));
+        comboEspecialidade.setAlignmentX(Component.CENTER_ALIGNMENT);
+        comboEspecialidade.setVisible(false);
+        painelCadastroExtra.add(comboEspecialidade);
         painelCadastroExtra.add(Box.createVerticalStrut(8));
 
         campoValor = MainFrame.criarCampoTexto("Valor da consulta");
@@ -97,10 +113,11 @@ public class LoginPanel extends JPanel {
         painelCadastroExtra.add(campoValor);
 
         comboTipo.addActionListener(e -> {
-            boolean isMedico = !comboTipo.getSelectedItem().equals("Paciente");
+            boolean isMedico = comboTipo.getSelectedItem().equals("Médico");
             campoValor.setVisible(isMedico);
+            comboEspecialidade.setVisible(isMedico);
             campoIdade.setVisible(!isMedico);
-            campoPlano.setVisible(!isMedico);
+            comboPlano.setVisible(!isMedico);
             painelCadastroExtra.revalidate();
         });
 
@@ -164,6 +181,19 @@ public class LoginPanel extends JPanel {
         if (usuario != null) {
             mainFrame.setUsuarioLogado(usuario);
             mainFrame.mostrarTela(MainFrame.DASHBOARD);
+
+            if (usuario instanceof Paciente) {
+                Paciente paciente = (Paciente) usuario;
+                java.util.ArrayList<Agendamento> ags = mainFrame.getSistema().getAgendamentosPaciente(paciente);
+                LocalDate hoje = LocalDate.now();
+                for (Agendamento ag : ags) {
+                    if (ag.getDataConsulta().equals(hoje)) {
+                        JOptionPane.showMessageDialog(mainFrame,
+                                "Você tem uma consulta agendada para hoje com o(a) " + ag.getMedico().getNome() + "!",
+                                "Consulta Hoje", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(this,
                     "Nome ou senha incorretos!",
@@ -187,7 +217,10 @@ public class LoginPanel extends JPanel {
 
         if (tipo.equals("Paciente")) {
             String idadeStr = MainFrame.getTextoOuVazio(campoIdade, "Idade");
-            String plano = MainFrame.getTextoOuVazio(campoPlano, "Plano de Saúde (ou vazio)");
+            String plano = (String) comboPlano.getSelectedItem();
+            if (plano.equals("Nenhum")) {
+                plano = "";
+            }
             int idade;
             try {
                 idade = Integer.parseInt(idadeStr);
@@ -198,6 +231,7 @@ public class LoginPanel extends JPanel {
             }
             mainFrame.getSistema().cadastrarPaciente(nome, idade, plano, senha);
         } else {
+            String especialidade = (String) comboEspecialidade.getSelectedItem();
             String valorStr = MainFrame.getTextoOuVazio(campoValor, "Valor da consulta");
             double valor;
             try {
@@ -207,7 +241,7 @@ public class LoginPanel extends JPanel {
                         "Valor inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            mainFrame.getSistema().cadastrarMedico(nome, valor, senha, tipo);
+            mainFrame.getSistema().cadastrarMedico(nome, valor, senha, especialidade);
         }
 
         JOptionPane.showMessageDialog(this,

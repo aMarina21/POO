@@ -105,7 +105,7 @@ public class HistoricoPanel extends JPanel {
 
         JTextArea textArea = new JTextArea(sb.toString());
         textArea.setEditable(false);
-        textArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        textArea.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
         textArea.setBackground(new Color(30, 41, 59));
         textArea.setForeground(new Color(226, 232, 240));
         textArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
