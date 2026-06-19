@@ -1,3 +1,1 @@
-Médico	Paciente	Data
-Dr.Marina	Erick	2026-05-31
-Dr.Marina	Livia	2026-05-31
+Dr. Carlos	Livia	2026-06-22
