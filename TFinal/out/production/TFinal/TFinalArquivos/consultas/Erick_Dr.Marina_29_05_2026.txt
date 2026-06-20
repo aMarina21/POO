@@ -1,7 +1,0 @@
-Medico: Dr.Marina
-Paciente: Erick
-Data da consulta: 29/05/2026
-Descrição da consulta: Consulta de rotina realizada com sucesso
-Receita: Vitamina D e Ferro
-Sem exames sugeridos
-Valor: R$250.0

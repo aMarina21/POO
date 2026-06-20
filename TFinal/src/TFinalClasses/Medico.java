@@ -31,18 +31,6 @@ public abstract class Medico {
         }
     }
 
-    private String caminho = "src/TFinalArquivos/medicos/medicos.txt";
-
-    public void registrarMedico() throws IOException {
-        File arquivoMedicos = new File(caminho);
-
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoMedicos, true))) {
-            String planos = String.join(",", this.planosDeSaude);
-            escritor.write(this.nome + "\t" + this.senha + "\t" + this.especialidade + "\t" + this.valorConsulta + "\t"
-                    + planos + "\n");
-        }
-    }
-
     public boolean planoValido(String plano) {
         return true;
     }

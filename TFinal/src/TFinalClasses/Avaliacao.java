@@ -47,31 +47,6 @@ public class Avaliacao {
         this.estrelas = estrelas;
     }
 
-    public void registrarAvaliacao() throws AvaliacaoInvalidaException {
-        if (this.estrelas < 1 || this.estrelas > 5) {
-            throw new AvaliacaoInvalidaException();
-        }
-        String caminho =
-            this.paciente.getNome() + "_" + this.medico.getNome() + "_av.txt";
-        String diretorio = "src/TFinalArquivos/avaliacoes/";
-        File arquivoAvaliacao = new File(diretorio + caminho);
-        try (
-            BufferedWriter escritor = new BufferedWriter(
-                new FileWriter(arquivoAvaliacao)
-            )
-        ) {
-            escritor.write("Medico: " + this.medico.getNome() + "\n");
-            escritor.write("Paciente: " + this.paciente.getNome() + "\n");
-            escritor.write("Descrição: " + this.descricao + "\n");
-            escritor.write("Avaliação: " + this.estrelas + " estrelas");
-            escritor.close();
-        } catch (IOException e) {
-            System.out.println(
-                "Erro ao registrar avaliação: " + e.getMessage()
-            );
-        }
-    }
-
     @Override
     public String toString() {
         return medico.getNome() + " - " + estrelas + "\u2605 - " + descricao;

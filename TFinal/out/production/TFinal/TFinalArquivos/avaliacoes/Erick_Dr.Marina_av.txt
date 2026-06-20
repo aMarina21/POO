@@ -1,4 +1,0 @@
-Medico: Dr.Marina
-Paciente: Erick
-Descrição: Ótimo atendimento!
-Avaliação: 5 estrelas

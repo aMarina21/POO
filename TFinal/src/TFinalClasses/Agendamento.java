@@ -37,48 +37,4 @@ public class Agendamento {
         return medico.getNome() + " | " + paciente.getNome() + " | " + dataConsulta.toString();
     }
 
-    private String caminho = "src/TFinalArquivos/agendamentos/agendamentos.txt";
-
-    public int contarAgendamentos() throws IOException {
-        File arquivoAgendamento = new File(caminho);
-        int contador = 0;
-
-        if (!arquivoAgendamento.exists())
-            return 0;
-        try (BufferedReader leitor = new BufferedReader(new FileReader(arquivoAgendamento))) {
-            String linha;
-            while ((linha = leitor.readLine()) != null) {
-                String divisao[] = linha.split("\t");
-                String medico = divisao[0];
-                String data = divisao[2];
-
-                if (medico.equalsIgnoreCase(this.medico.getNome()) && data.equals(this.dataConsulta.toString())) {
-                    contador++;
-                }
-            }
-        }
-        return contador;
-    }
-
-    public boolean temVagas() throws IOException {
-        int qtdVagas = this.medico.getPacientesPorDia();
-        return contarAgendamentos() < qtdVagas;
-    }
-
-    public void registrarAgendamento() throws IOException, AgendaLotadaException {
-        File arquivoAgendamento = new File(caminho);
-        if (temVagas()) {
-            try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoAgendamento, true))) {
-                if (!arquivoAgendamento.exists() || arquivoAgendamento.length() == 0) {
-                    escritor.write("Médico\tPaciente\tData\n");
-                }
-                escritor.write(
-                        this.medico.getNome() + "\t" + this.paciente.getNome() + "\t" + this.dataConsulta + "\n");
-                System.out.println("Agendamento concluido!");
-            }
-        } else {
-            throw new AgendaLotadaException(this.medico.getNome(), this.dataConsulta.toString());
-        }
-    }
-
 }

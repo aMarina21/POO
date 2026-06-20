@@ -75,32 +75,4 @@ public class Consulta {
         this.valorPago = valorPago;
     }
 
-    public void registrarConsulta(){
-        String dataFormatada = this.data.replace("/", "_");
-        String caminho = this.paciente.getNome() + "_" + this.medico.getNome() + "_" + dataFormatada + ".txt";
-        String diretorio = "src/TFinalArquivos/consultas/";
-        File arquivoConsulta = new File(diretorio + caminho);
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoConsulta))){
-            escritor.write("Medico: " + this.medico.getNome() + "\n");
-            escritor.write("Paciente: " + this.paciente.getNome() + "\n");
-            escritor.write("Data da consulta: " + this.data + "\n");
-            escritor.write("Descrição da consulta: " + this.descricao + "\n");
-            if(this.receita != null && !this.receita.trim().isEmpty()){
-                escritor.write("Receita: " + this.receita + "\n");
-            } else {
-                escritor.write("Sem receita\n");
-            }
-            if(exames != null && !this.exames.trim().isEmpty()){
-                escritor.write("Exames: " + this.exames + "\n");
-            } else {
-                escritor.write("Sem exames sugeridos\n");
-            }
-            escritor.write("Valor: R$" + this.valorPago);
-
-            escritor.close();
-        } catch (IOException e) {
-            System.out.println("Erro ao registrar consulta: " + e.getMessage());
-        }
-    }
-
 }

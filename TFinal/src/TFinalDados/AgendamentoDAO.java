@@ -66,4 +66,20 @@ public class AgendamentoDAO {
         }
         return listaAgendamentos;
     }
+
+    public void removerAgendamento(Agendamento agendamento){
+        String sql = "DELETE FROM agendamentos WHERE medico = ? AND paciente = ? AND data = ?";
+        try(Connection conexao = DBConnection.getConnection();
+            PreparedStatement statement = conexao.prepareStatement(sql);
+        ) {
+            statement.setString(1, agendamento.getMedico().getNome());
+            statement.setString(2, agendamento.getPaciente().getNome());
+            statement.setString(3, agendamento.getDataConsulta().toString());
+            statement.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
 }

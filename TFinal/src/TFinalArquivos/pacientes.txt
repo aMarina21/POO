@@ -1,4 +1,0 @@
-Erick	20	Unimed	1234
-Livia	19	Hapvida	1234
-Enderson	21		1234
-Maria	18	Unimed	1234

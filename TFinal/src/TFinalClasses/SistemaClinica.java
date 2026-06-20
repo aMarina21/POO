@@ -42,10 +42,10 @@ public class SistemaClinica {
     // ==================== PERSISTÊNCIA ====================
 
     private void carregarDados() {
-//        carregarMedicos();
-//        carregarPacientes();
-//        carregarAgendamentos();
-//        carregarConsultas();
+        carregarMedicos();
+        carregarPacientes();
+        carregarAgendamentos();
+        carregarConsultas();
         this.medicos = medicoDAO.buscarMedicos();
         this.pacientes = pacienteDAO.buscarPacientes();
         this.agendamentos = agendamentoDAO.buscarAgendamentos(this.pacientes, this.medicos);
@@ -58,198 +58,21 @@ public class SistemaClinica {
     }
 
     private void carregarMedicos() {
-        File arquivo = new File(basePath + "/medicos.txt");
-        if (!arquivo.exists())
-            return;
-        try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            while ((linha = leitor.readLine()) != null) {
-                if (linha.trim().isEmpty())
-                    continue;
-                String[] partes = linha.split("\t");
-                if (partes.length < 5)
-                    continue;
-                String nome = partes[0];
-                String especialidade = partes[1];
-                double valor = Double.parseDouble(partes[2]);
-                String senha = partes[3];
-                String tipo = partes[4];
-                Medico medico;
-                switch (tipo) {
-                    case "Cardiologista":
-                        medico = new MedicoCardiologista(nome, valor, senha);
-                        break;
-                    case "Dermatologista":
-                        medico = new MedicoDermatologista(nome, valor, senha);
-                        break;
-                    case "Pediatra":
-                        medico = new MedicoPediatra(nome, valor, senha);
-                        break;
-                    default:
-                        continue;
-                }
-                medicos.add(medico);
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao carregar médicos: " + e.getMessage());
-        }
+        this.medicos = medicoDAO.buscarMedicos();
     }
 
-    private void salvarMedicos() {
-        File arquivo = new File(basePath + "/medicos.txt");
-        if (arquivo.getParentFile() != null) {
-            arquivo.getParentFile().mkdirs();
-        }
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo))) {
-            for (Medico m : medicos) {
-                String tipo;
-                if (m instanceof MedicoCardiologista)
-                    tipo = "Cardiologista";
-                else if (m instanceof MedicoDermatologista)
-                    tipo = "Dermatologista";
-                else if (m instanceof MedicoPediatra)
-                    tipo = "Pediatra";
-                else
-                    tipo = "Desconhecido";
-                escritor.write(m.getNome() + "\t" + m.getEspecialidade() + "\t"
-                        + m.getValorConsulta() + "\t" + m.getSenha() + "\t" + tipo + "\n");
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar médicos: " + e.getMessage());
-        }
-    }
 
     private void carregarPacientes() {
-        File arquivo = new File(basePath + "/pacientes.txt");
-        if (!arquivo.exists())
-            return;
-        try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            while ((linha = leitor.readLine()) != null) {
-                if (linha.trim().isEmpty())
-                    continue;
-                String[] partes = linha.split("\t");
-                if (partes.length < 4)
-                    continue;
-                String nome = partes[0];
-                int idade = Integer.parseInt(partes[1]);
-                String plano = partes[2];
-                String senha = partes[3];
-                Paciente p = new Paciente(nome, idade, plano, senha);
-                pacientes.add(p);
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao carregar pacientes: " + e.getMessage());
-        }
+        this.pacientes = pacienteDAO.buscarPacientes();
     }
 
-    private void salvarPacientes() {
-        File arquivo = new File(basePath + "/pacientes.txt");
-        if (arquivo.getParentFile() != null) {
-            arquivo.getParentFile().mkdirs();
-        }
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo))) {
-            for (Paciente p : pacientes) {
-                escritor.write(p.getNome() + "\t" + p.getIdade() + "\t"
-                        + p.getPlanoSaude() + "\t" + p.getSenha() + "\n");
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar pacientes: " + e.getMessage());
-        }
-    }
 
     private void carregarAgendamentos() {
-        File arquivo = new File(basePath + "/agendamentos/agendamentos.txt");
-        if (!arquivo.exists())
-            return;
-        try (BufferedReader leitor = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            while ((linha = leitor.readLine()) != null) {
-                if (linha.trim().isEmpty() || linha.startsWith("Médico"))
-                    continue;
-                String[] partes = linha.split("\t");
-                if (partes.length < 3)
-                    continue;
-                String nomeMedico = partes[0];
-                String nomePaciente = partes[1];
-                LocalDate data = LocalDate.parse(partes[2]);
-                Medico medico = buscarMedicoPorNome(nomeMedico);
-                Paciente paciente = buscarPacientePorNome(nomePaciente);
-                if (medico != null && paciente != null) {
-                    Agendamento ag = new Agendamento(medico, paciente, data);
-                    agendamentos.add(ag);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao carregar agendamentos: " + e.getMessage());
-        }
-    }
-
-    private void salvarAgendamentos() {
-        File arquivo = new File(basePath + "/agendamentos/agendamentos.txt");
-        arquivo.getParentFile().mkdirs();
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo))) {
-            for (Agendamento ag : agendamentos) {
-                escritor.write(ag.getMedico().getNome() + "\t"
-                        + ag.getPaciente().getNome() + "\t"
-                        + ag.getDataConsulta().toString() + "\n");
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar agendamentos: " + e.getMessage());
-        }
+        this.agendamentos = agendamentoDAO.buscarAgendamentos(pacientes, medicos);
     }
 
     private void carregarConsultas() {
-        File diretorio = new File(basePath + "/consultas/");
-        if (!diretorio.exists())
-            return;
-        File[] arquivos = diretorio.listFiles((dir, name) -> name.endsWith(".txt"));
-        if (arquivos == null)
-            return;
-        for (File arq : arquivos) {
-            try (BufferedReader leitor = new BufferedReader(new FileReader(arq))) {
-                String linhaMedico = leitor.readLine();
-                String linhaPaciente = leitor.readLine();
-                String linhaData = leitor.readLine();
-                String linhaDescricao = leitor.readLine();
-                String linhaReceita = leitor.readLine();
-                String linhaExames = leitor.readLine();
-                String linhaValor = leitor.readLine();
-
-                if (linhaMedico == null || linhaPaciente == null)
-                    continue;
-
-                String nomeMedico = linhaMedico.replace("Medico: ", "");
-                String nomePaciente = linhaPaciente.replace("Paciente: ", "");
-                String data = linhaData != null ? linhaData.replace("Data da consulta: ", "") : "";
-                String descricao = linhaDescricao != null ? linhaDescricao.replace("Descrição da consulta: ", "") : "";
-                String receita = "";
-                if (linhaReceita != null && !linhaReceita.equals("Sem receita")) {
-                    receita = linhaReceita.replace("Receita: ", "");
-                }
-                String exames = "";
-                if (linhaExames != null && !linhaExames.equals("Sem exames sugeridos")) {
-                    exames = linhaExames.replace("Exames: ", "");
-                }
-                double valor = 0;
-                if (linhaValor != null) {
-                    try {
-                        valor = Double.parseDouble(linhaValor.replace("Valor: R$", "").trim());
-                    } catch (NumberFormatException ignored) {
-                    }
-                }
-
-                Medico medico = buscarMedicoPorNome(nomeMedico);
-                Paciente paciente = buscarPacientePorNome(nomePaciente);
-                if (medico != null && paciente != null) {
-                    Consulta c = new Consulta(medico, paciente, data, descricao, receita, exames, valor);
-                    consultas.add(c);
-                    paciente.adicionarConsultaHistorico(c);
-                }
-            } catch (IOException e) {
-                System.out.println("Erro ao carregar consulta: " + e.getMessage());
-            }
-        }
+        this.consultas = consultaDAO.buscarConsultas(pacientes, medicos);
     }
 
     private void carregarListaEspera() {
@@ -315,7 +138,6 @@ public class SistemaClinica {
     public void cadastrarPaciente(String nome, int idade, String plano, String senha) {
         Paciente p = new Paciente(nome, idade, plano, senha);
         pacientes.add(p);
-        salvarPacientes();
 
         //teste de cadastro no DB
         pacienteDAO.cadastrarPaciente(p);
@@ -338,7 +160,7 @@ public class SistemaClinica {
                 return;
         }
         medicos.add(m);
-        salvarMedicos();
+        medicoDAO.cadastrarMedico(m);
     }
 
     // ==================== PESQUISA DE MÉDICOS ====================
@@ -381,8 +203,8 @@ public class SistemaClinica {
             throw new AgendaLotadaException(medico.getNome(), data.toString());
         }
         Agendamento ag = new Agendamento(medico, paciente, data);
+        agendamentoDAO.cadastrarAgendamento(ag);
         agendamentos.add(ag);
-        salvarAgendamentos();
     }
 
     public void entrarListaEspera(Medico medico, Paciente paciente, LocalDate data) {
@@ -393,7 +215,8 @@ public class SistemaClinica {
 
     public void cancelarAgendamento(Agendamento agendamento) {
         agendamentos.remove(agendamento);
-        salvarAgendamentos();
+        agendamentoDAO.removerAgendamento(agendamento);
+        //remover agendamento antigo do db
 
         // Promover paciente da lista de espera
         String chave = agendamento.getMedico().getNome() + "|" + agendamento.getDataConsulta().toString();
@@ -402,7 +225,9 @@ public class SistemaClinica {
             Paciente promovido = fila.poll();
             Agendamento novoAg = new Agendamento(agendamento.getMedico(), promovido, agendamento.getDataConsulta());
             agendamentos.add(novoAg);
-            salvarAgendamentos();
+            agendamentoDAO.cadastrarAgendamento(novoAg);
+            //salvar novo agendamento no db
+
             salvarListaEspera();
         }
     }
@@ -451,7 +276,7 @@ public class SistemaClinica {
         }
 
         Consulta consulta = new Consulta(medico, paciente, data, descricao, receita, exames, valor);
-        consulta.registrarConsulta();
+        consultaDAO.cadastrarConsulta(consulta); //salvando a consulta no db
         consultas.add(consulta);
         paciente.adicionarConsultaHistorico(consulta);
 
@@ -467,7 +292,7 @@ public class SistemaClinica {
         }
         if (paraRemover != null) {
             agendamentos.remove(paraRemover);
-            salvarAgendamentos();
+            agendamentoDAO.removerAgendamento(paraRemover);
         }
 
         return consulta;
@@ -478,7 +303,7 @@ public class SistemaClinica {
     public void registrarAvaliacao(Medico medico, Paciente paciente, String descricao, int estrelas)
             throws AvaliacaoInvalidaException {
         Avaliacao avaliacao = new Avaliacao(medico, paciente, descricao, estrelas);
-        avaliacao.registrarAvaliacao();
+        avaliacaoDAO.cadastrarAvaliacao(avaliacao);
         medico.adicionarAvaliacao(avaliacao);
     }
 

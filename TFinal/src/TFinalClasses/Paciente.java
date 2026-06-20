@@ -57,16 +57,6 @@ public class Paciente {
         this.historico = new ArrayList<>();
     }
 
-    private String caminho = "src/TFinalArquivos/pacientes/pacientes.txt";
-
-    public void registrarPaciente() throws IOException {
-        File arquivoPacientes = new File(caminho);
-
-        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoPacientes, true))) {
-            escritor.write(this.nome + "\t" + this.idade + "\t" + this.senha + "\t" + this.planoSaude + "\n");
-        }
-    }
-
     public void adicionarConsultaHistorico(Consulta consulta) {
         this.historico.add(consulta);
     }
